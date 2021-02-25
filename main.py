@@ -5,13 +5,13 @@ import math
 import random
 
 window = turtle.Screen()
-window.setup(width=600, height=600)
+window.setup(width=800, height=800)
 window.title("Star Wars Game by Ankur Gajurel")
 window.bgcolor("black")
 
 window.tracer(0)
 
-vertex = ((0, 15), (-15, 0), (-18, 5), (-18, -5), (0, 0), (18, -5), (18, 5), (15, 0))
+vertex = ((0, 15), (-15, 0), (-18, 5), (-18, -5), (0, 0), (18, -5), (18, 5), (15, 0))           #our spaceship design
 window.register_shape("player", vertex)
 
 asVertex = ((0, 10), (5, 7), (3, 3), (10, 0), (7, 4), (8, -6), (0, -10), (-5, -5), (-7, -7), (-10, 0), (-5, 4), (-1, 8))
@@ -29,7 +29,7 @@ class Ankur(turtle.Turtle):
         self.speed(0)
         self.penup()
 
- 
+
 def ankur1(t1, t2):
     x1 = t1.xcor()
     y1 = t1.ycor()
@@ -55,7 +55,7 @@ missiles = []
 for _ in range(3):
     missile = Ankur()
     missile.color("red")
-    missile.shape("arrow")
+    missile.shape("triangle")        #missle shape
     missile.speed = 1
     missile.state = "ready"
     missile.hideturtle()
@@ -64,8 +64,8 @@ for _ in range(3):
 pen = Ankur()
 pen.color("white")
 pen.hideturtle()
-pen.goto(0, 250)
-pen.write("Score: 0", False, align="center", font=("Arial", 24, "normal"))
+pen.goto(-650, 350)                                 #score board
+pen.write("Score: 0", False, align="left", font=("Arial", 24, "normal"))
 
 ####################
 # This is the Fourth Part
@@ -75,7 +75,7 @@ chattans = []
 
 for _ in range(5):
     chattan = Ankur()
-    chattan.color("brown")
+    chattan.color("green")              #enemy space ship color
     chattan.shape("arrow")
 
     chattan.speed = random.randint(2, 3) / 50
@@ -117,6 +117,8 @@ window.onkey(fire_missile, "space")
 ####################
 # This is the Functioning the Code Part-1
 
+#if alive
+
 sakkyo = False
 while True:
 
@@ -141,7 +143,7 @@ while True:
                 chattan.setheading(taauko)
                 chattan.fd(distance)
                 chattan.setheading(ankur1(player, chattan))
-                chattan.speed += 0.01
+                chattan.speed += 0.005   #enemy_space_ship_speed
 
                 missile.goto(600, 600)
                 missile.hideturtle()
@@ -160,17 +162,24 @@ while True:
             chattan.setheading(taauko)
             chattan.fd(distance)
             chattan.setheading(ankur1(player, chattan))
-            chattan.speed += 0.005
+            chattan.speed += 0.005                      #enemy space ship speed
             sakkyo = True
-            player.score -= 30
             pen.clear()
-            pen.write("Score: {}".format(player.score), False, align="center", font=("Arial", 24, "normal"))
+
+    # if dead
+
     if sakkyo == True:
         player.hideturtle()
         missile.hideturtle()
         for a in chattans:
             a.hideturtle()
         pen.clear()
+        pen.color("red")
+        pen.goto(0, 100)
+        pen.write("GAME OVER !!", False, align="center", font=("Arial", 24, "normal"))
+        pen.goto(0, -100)
+        pen.color("blue")
+        pen.write("Score: {}".format(player.score), False, align="center", font=("Arial", 24, "normal"))
         break
 
 window.mainloop()

@@ -183,4 +183,3 @@ while True:
         break
 
 window.mainloop()
-# This Game is build by Ankur Gajurel
